@@ -9,11 +9,11 @@ import { RolesGuard } from './guards/roles.guard';
 const imports = [
   TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'postgres',
-    database: 'test',
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     entities: ['./entities/*.ts'],
     migrations: ['./migrations/*.ts'],
     synchronize: true, // should be removed in production
