@@ -6,7 +6,7 @@ export class Store {
   @PrimaryGeneratedColumn('increment', { type: 'int' })
   id: number;
 
-  @Column({ type: 'string', name: 'name' })
+  @Column({ type: 'varchar', name: 'name' })
   name: string;
 
   @OneToMany(() => Book, (book) => book.store)

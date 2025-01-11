@@ -6,7 +6,7 @@ export class Book {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @Column({ type: 'string', name: 'name' })
+  @Column({ type: 'varchar', name: 'name' })
   name: string;
 
   @Column({ type: 'integer', name: 'stock', default: 0 })
