@@ -42,7 +42,6 @@ export class JWTGuard implements CanActivate {
       });
 
       request.user = payload;
-      console.log(request.user);
       return true;
     } catch (error) {
       throw new UnauthorizedException(error.message);
