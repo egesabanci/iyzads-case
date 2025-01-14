@@ -1,5 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Body, Post } from '@nestjs/common';
+
 import { AppService } from './app.service';
+
+import { CreateUserRequestDTO, LoginRequestDTO, UserDTO } from './dto';
+import { Role, Roles } from './decorators/roles.decorator';
 
 @Controller()
 export class AppController {
@@ -8,5 +12,18 @@ export class AppController {
   @Get('/books')
   public async getBooks() {
     return await this.service.getAllBooks();
+  }
+
+  @Post('/login')
+  public async login(@Body() payload: LoginRequestDTO): Promise<UserDTO> {
+    return await this.service.login(payload);
+  }
+
+  @Roles(Role.ADMIN)
+  @Post('/users')
+  public async createUser(
+    @Body() payload: CreateUserRequestDTO,
+  ): Promise<UserDTO> {
+    return await this.service.createUser(payload);
   }
 }

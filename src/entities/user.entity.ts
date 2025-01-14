@@ -13,6 +13,12 @@ export class User {
   @PrimaryGeneratedColumn('increment', { type: 'int' })
   id: number;
 
+  @Column({ type: 'varchar', name: 'name', unique: true })
+  name: string;
+
+  @Column({ type: 'varchar', name: 'password' })
+  password: string;
+
   @Column({ type: 'enum', enum: Role, default: Role.USER })
   role: Role;
 

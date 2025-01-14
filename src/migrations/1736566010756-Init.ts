@@ -14,6 +14,15 @@ export class Init1736566010756 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
+            name: 'name',
+            type: 'varchar',
+            isUnique: true,
+          },
+          {
+            name: 'password',
+            type: 'varchar',
+          },
+          {
             name: 'role',
             type: 'enum',
             enum: ['admin', 'manager', 'user'],
