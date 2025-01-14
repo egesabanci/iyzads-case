@@ -1,5 +1,6 @@
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
@@ -19,6 +20,7 @@ export class AppService {
     private bookRepository: Repository<Book>,
     @InjectRepository(Store)
     private storeRepository: Repository<Store>,
+    private jwtService: JwtService,
   ) {}
 
   public async getAllBooks() {
@@ -35,13 +37,32 @@ export class AppService {
     });
 
     if (!user) {
+      throw new HttpException(
+        `User with name '${payload.name}' was not found`,
+        404,
+      );
+    }
+
+    const isValidPassword = await bcrypt.compare(
+      payload.password,
+      user.password,
+    );
+
+    if (!isValidPassword) {
       throw new HttpException('Invalid credentials', 401);
     }
 
-    // TODO: Add password verification when it is implemented
-    // TODO: implement jwt
+    const token = this.jwtService.sign({
+      id: user.id,
+      name: user.name,
+      role: user.role,
+    });
 
-    return plainToInstance(UserDTO, { ...user, password: undefined });
+    return plainToInstance(UserDTO, {
+      ...user,
+      password: undefined,
+      jwt: token,
+    });
   }
 
   public async createUser(payload: CreateUserRequestDTO): Promise<UserDTO> {
