@@ -1,3 +1,9 @@
 export { UserDTO } from './response/user.response.dto';
 export { LoginRequestDTO } from './request/login.request.dto';
 export { CreateUserRequestDTO } from './request/create-user.request.dto';
+export { CreateNewBookDTO } from './request/create-new-book.request.dto';
+export { GetAllBooksRequestDTO } from './request/get-all-books.request.dto';
+export { UpdateQuantityRequestDTO } from './request/update-quantity.request.dto';
+export { CreateStoreRequestDTO } from './request/create-store.request.dto';
+export { BookDTO } from './response/book.response.dto';
+export { StoreDTO } from './response/store.response.dto';

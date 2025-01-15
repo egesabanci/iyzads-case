@@ -1,0 +1,223 @@
+{
+  "info": {
+    "_postman_id": "47c1d64d-91f7-49d4-b8b0-e6a4327fca85",
+    "name": "iyzads-casestudy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17907455"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"admin\",\n    \"password\": \"admin-password-123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/login",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get stores",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6Im1hbmFnZXIiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTczNjk0MTg0NywiZXhwIjoxNzM2OTQ1NDQ3fQ.3tQlXb7ZEEzQ66xI2NLMhMxXqXQ9BR7LE-WEm6m-X9U",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:3000/stores",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["stores"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get and filter books",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6Im1hbmFnZXIiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTczNjk0MTg0NywiZXhwIjoxNzM2OTQ1NDQ3fQ.3tQlXb7ZEEzQ66xI2NLMhMxXqXQ9BR7LE-WEm6m-X9U",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:3000/books?book=new&store=1",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["books"],
+          "query": [
+            {
+              "key": "book",
+              "value": "new"
+            },
+            {
+              "key": "store",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create new user",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM2OTQxOTc4LCJleHAiOjE3MzY5NDU1Nzh9.H9DQ3BCSIh781J3VJbegI7r5rBVqzmbNdz0RsWz__4E",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"user\",\n    \"password\": \"user-password-123\",\n    \"role\": \"user\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/users",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["users"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create new store",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM2OTQxMTY1LCJleHAiOjE3MzY5NDQ3NjV9.sxHThvkuwONWWseuEpnHEYpeyJE8cCkQLWZqOTEH6Eo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"new-store-2\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/stores",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["stores"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create new book",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwibmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzM2OTQxMTY1LCJleHAiOjE3MzY5NDQ3NjV9.sxHThvkuwONWWseuEpnHEYpeyJE8cCkQLWZqOTEH6Eo",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"new-book-3\",\n    \"stock\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/stores/1/books",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["stores", "1", "books"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update book quantity",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwibmFtZSI6Im1hbmFnZXIiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTczNjk0MTg0NywiZXhwIjoxNzM2OTQ1NDQ3fQ.3tQlXb7ZEEzQ66xI2NLMhMxXqXQ9BR7LE-WEm6m-X9U",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"bookId\": \"7178e151-4389-4411-b902-d9b1a61c0c24\",\n    \"quantity\": 43\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:3000/stores/2/books",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["stores", "2", "books"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

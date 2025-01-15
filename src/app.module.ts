@@ -7,12 +7,13 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from './ormconfig';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+
+import { JWTGuard } from './guards';
 import { RolesGuard } from './guards/roles.guard';
 
 import { User } from './entities/user.entity';
 import { Book } from './entities/book.entity';
 import { Store } from './entities/store.entity';
-import { JWTGuard } from './guards';
 
 const imports = [
   ConfigModule,

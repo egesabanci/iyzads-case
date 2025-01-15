@@ -4,7 +4,7 @@ import { Store } from './store.entity';
 @Entity()
 export class Book {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column({ type: 'varchar', name: 'name' })
   name: string;
