@@ -1,9 +1,10 @@
 import * as bcrypt from 'bcryptjs';
-import { ILike, Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
-import { HttpException, Injectable } from '@nestjs/common';
+import { ILike, Repository } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
+import { HttpException, Injectable } from '@nestjs/common';
 
 import { User } from './entities/user.entity';
 import { Book } from './entities/book.entity';
@@ -21,6 +22,8 @@ import {
   CreateNewBookDTO,
 } from './dto';
 
+import { createAdminUser } from './init/admin.seed';
+
 @Injectable()
 export class AppService {
   constructor(
@@ -31,7 +34,12 @@ export class AppService {
     @InjectRepository(Store)
     private storeRepository: Repository<Store>,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
+
+  async onModuleInit() {
+    await createAdminUser(this.userRepository, this.configService);
+  }
 
   public async getAllStores(): Promise<StoreDTO[]> {
     const stores = await this.storeRepository.find({ relations: ['books'] });
