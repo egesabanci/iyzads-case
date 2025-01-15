@@ -57,6 +57,7 @@ export class Init1736566010756 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
+            isUnique: true,
           },
         ],
       }),
@@ -71,6 +72,8 @@ export class Init1736566010756 implements MigrationInterface {
             name: 'id',
             type: 'uuid',
             isPrimary: true,
+            generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'name',
@@ -78,17 +81,17 @@ export class Init1736566010756 implements MigrationInterface {
           },
           {
             name: 'stock',
-            type: 'int',
+            type: 'integer',
             default: 0,
           },
           {
-            name: 'store',
+            name: 'storeId',
             type: 'int',
           },
         ],
         foreignKeys: [
           {
-            columnNames: ['store'],
+            columnNames: ['storeId'],
             referencedTableName: 'store',
             referencedColumnNames: ['id'],
             onDelete: 'CASCADE',
