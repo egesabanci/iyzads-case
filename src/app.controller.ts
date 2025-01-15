@@ -6,8 +6,16 @@ import {
   Query,
   Param,
   Patch,
+  Inject,
 } from '@nestjs/common';
+
 import { plainToInstance } from 'class-transformer';
+import {
+  CACHE_MANAGER,
+  Cache,
+  CacheKey,
+  CacheTTL,
+} from '@nestjs/cache-manager';
 
 import { AppService } from './app.service';
 
@@ -27,7 +35,11 @@ import { Role, Roles, Public } from './decorators';
 
 @Controller()
 export class AppController {
-  constructor(private service: AppService) {}
+  constructor(
+    private service: AppService,
+    @Inject(CACHE_MANAGER)
+    private cache: Cache,
+  ) {}
 
   @Public()
   @Post('/login')
@@ -35,19 +47,41 @@ export class AppController {
     return await this.service.login(payload);
   }
 
+  @CacheKey('get-all-stores')
+  @CacheTTL(60) // 1 minutes
   @Get('/stores')
   public async getStores(): Promise<StoreDTO[]> {
-    return await this.service.getAllStores();
+    const cached = await this.cache.get<StoreDTO[]>('stores');
+    if (cached) {
+      return cached;
+    }
+
+    const response = await this.service.getAllStores();
+
+    await this.cache.set('stores', response);
+    return response;
   }
 
+  @CacheKey('get-and-filter-books')
+  @CacheTTL(60) // 1 minutes
   @Get('/books')
   public async getBooks(
     @Query('store') store?: number,
     @Query('book') book?: string,
-  ) {
-    return await this.service.getAllBooks(
+  ): Promise<StoreDTO[] | BookDTO[]> {
+    const cached = await this.cache.get<StoreDTO[] | BookDTO[]>(
+      `store=${store}&book=${book}`,
+    );
+
+    if (cached) {
+      return cached;
+    }
+
+    const response = await this.service.getAllBooks(
       plainToInstance(GetAllBooksRequestDTO, { store, book }),
     );
+
+    await this.cache.set(`store=${store}&book=${book}`, response);
   }
 
   @Roles(Role.ADMIN)

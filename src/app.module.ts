@@ -1,7 +1,8 @@
 import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { config } from './ormconfig';
@@ -17,6 +18,7 @@ import { Store } from './entities/store.entity';
 
 const imports = [
   ConfigModule,
+  CacheModule.register({ isGlobal: true, store: 'memory' }),
   TypeOrmModule.forRoot({ ...config } as TypeOrmModuleOptions),
   TypeOrmModule.forFeature([User, Book, Store]),
   JwtModule.register({
@@ -36,6 +38,10 @@ const providers = [
   {
     provide: APP_GUARD,
     useClass: RolesGuard,
+  },
+  {
+    provide: APP_INTERCEPTOR,
+    useClass: CacheInterceptor,
   },
 ];
 
